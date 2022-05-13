@@ -48,6 +48,8 @@ def compile(config: Configuration):
     name: str = config.get("name") or ""
     if not name:
         for subdir in root.iterdir():
+            if subdir.name == "build":
+                continue
             if subdir.is_dir() and (subdir / "pom.xml").exists():
                 prun(["mvn", "compile"], cwd=subdir, shell=True)
     else:
