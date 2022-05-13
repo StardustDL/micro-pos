@@ -1,14 +1,14 @@
 from pathlib import Path
 import os
 from platform import system
-from coxbuild.schema import task, group, named, run, depend, ext, withExecutionState, ExecutionState, withProject, ProjectSettings, withConfig, Configuration
+from coxbuild.schema import task, group, named, run as innerRun, depend, ext, withExecutionState, ExecutionState, withProject, ProjectSettings, withConfig, Configuration
 
 
 root = Path(".")
 
 
 def prun(*args, **kwargs):
-    run(*args, **kwargs, shell=system() == "Windows")
+    innerRun(*args, **kwargs, shell=system() == "Windows")
 
 
 def ensureDir(dir: Path):
