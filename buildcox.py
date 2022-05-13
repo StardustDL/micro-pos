@@ -1,9 +1,14 @@
 from pathlib import Path
 import os
-from coxbuild.schema import task, group, named, run as prun, depend, ext, withExecutionState, ExecutionState, withProject, ProjectSettings, withConfig, Configuration
+from platform import system
+from coxbuild.schema import task, group, named, run, depend, ext, withExecutionState, ExecutionState, withProject, ProjectSettings, withConfig, Configuration
 
 
 root = Path(".")
+
+
+def prun(*args, **kwargs):
+    run(*args, **kwargs, shell=system() == "Windows")
 
 
 def ensureDir(dir: Path):
@@ -39,7 +44,7 @@ def run(config: Configuration):
     if not name:
         print("No name specified")
         return
-    prun(["mvn", "spring-boot:run"], cwd=root / name, shell=True)
+    prun(["mvn", "spring-boot:run"], cwd=root / name)
 
 
 @withConfig
@@ -51,6 +56,7 @@ def compile(config: Configuration):
             if subdir.name == "build":
                 continue
             if subdir.is_dir() and (subdir / "pom.xml").exists():
-                prun(["mvn", "compile"], cwd=subdir, shell=True)
+                print(f"Compiling {subdir.name}")
+                prun(["mvn", "compile"], cwd=subdir)
     else:
-        prun(["mvn", "compile"], cwd=root / name, shell=True)
+        prun(["mvn", "compile"], cwd=root / name)
