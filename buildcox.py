@@ -10,6 +10,7 @@ if True:
     from build.utils import root, prun, ensureDir, projects
 
 build = ext("file://build/build.py").module
+test = ext("file://build/test.py").module
 
 
 @withConfig
@@ -22,28 +23,12 @@ def run(config: Configuration):
     prun(["gradle", "bootRun"], cwd=root / name)
 
 
-@withConfig
-@task
-def test(config: Configuration):
-    def onetest(name: str):
-        subdir = root / name
-        print(f"Testing {subdir.name}")
-        prun(["gradle", "test"], cwd=subdir)
-
-    name: str = config.get("name") or ""
-    if not name:
-        for project in projects():
-            onetest(project)
-    else:
-        onetest(name)
-
-
 @depend(build.project)
 @task
 def default(): pass
 
 
-@depend(build.project, test, build.image)
+@depend(build.project, test.project, build.image)
 @task
 def ci():
     ciroot = root / "dist" / "ci"

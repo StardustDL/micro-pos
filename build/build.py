@@ -30,7 +30,7 @@ def image(config: Configuration):
     def onebuild(name: str):
         subdir = root / name
         print(f"Building {subdir.name}")
-        prun(["gradle", "bootBuildImage"], cwd=subdir)
+        prun(["gradle", "bootBuildImage", f"--imageName=micropos/{name}"], cwd=subdir)
 
     name: str = config.get("name") or ""
     if not name:
