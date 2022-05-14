@@ -1,5 +1,10 @@
+server:
+  port: 9005
 project:
   version: "0.1.0"
+spring:
+  application:
+    name: "micropos-products"
 springdoc:
   swagger-ui:
     use-root-path: true
