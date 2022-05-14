@@ -2,26 +2,14 @@ from pathlib import Path
 import os
 from platform import system
 import shutil
+import sys
 from coxbuild.schema import task, group, named, run as innerRun, depend, ext, withExecutionState, ExecutionState, withProject, ProjectSettings, withConfig, Configuration
 
+if True:
+    sys.path.append(str(Path(".").resolve()))
+    from build.utils import root, prun, ensureDir, projects
 
-root = Path(".")
-
-
-def projects():
-    for subdir in root.iterdir():
-        if subdir.is_dir() and (subdir / "build.gradle").exists():
-            yield subdir.name
-
-
-def prun(*args, **kwargs):
-    innerRun(*args, **kwargs, shell=system() == "Windows")
-
-
-def ensureDir(dir: Path):
-    if dir.exists() and dir.is_dir():
-        return
-    os.makedirs(dir)
+build = ext("file://build/build.py").module
 
 
 @withConfig
@@ -50,26 +38,15 @@ def test(config: Configuration):
         onetest(name)
 
 
-@withConfig
+@depend(build.project)
 @task
-def default(config: Configuration):
-    def onebuild(name: str):
-        subdir = root / name
-        print(f"Building {subdir.name}")
-        prun(["gradle", "build"], cwd=subdir)
-
-    name: str = config.get("name") or ""
-    if not name:
-        for project in projects():
-            onebuild(project)
-    else:
-        onebuild(name)
+def default(): pass
 
 
-@depend(default, test)
+@depend(build.project, test, build.image)
 @task
 def ci():
-    ciroot = root / "build" / "ci"
+    ciroot = root / "dist" / "ci"
     ensureDir(ciroot)
     for project in projects():
         target = ciroot / project

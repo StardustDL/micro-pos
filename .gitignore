@@ -2,4 +2,6 @@
 **/target
 **/bin
 **/.gradle
-**/build
+*/build
+**/__pycache__
+dist
