@@ -29,7 +29,7 @@ def run(config: Configuration):
 
 @withConfig
 @task
-def compile(config: Configuration):
+def default(config: Configuration):
     name: str = config.get("name") or ""
     if not name:
         for subdir in root.iterdir():
