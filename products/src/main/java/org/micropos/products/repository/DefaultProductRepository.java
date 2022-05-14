@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DefaultProductRepository implements ProductRepository {
     @Override
-    public Collection<Product> all() {
-        return new ArrayList<Product>();
+    public Collection<String> all() {
+        return new ArrayList<String>();
     }
 
     @Override
-    public Optional<Product> findById(String id) {
+    public Optional<Product> get(String id) {
         return Optional.ofNullable(id.equals("1") ? new Product() : null);
     }
 }

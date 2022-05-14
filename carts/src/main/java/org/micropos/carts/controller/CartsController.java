@@ -1,10 +1,10 @@
-package org.micropos.products.controller;
+package org.micropos.carts.controller;
 
 import java.util.Collection;
 
-import org.micropos.products.exception.ProductNotFoundException;
-import org.micropos.products.model.Product;
-import org.micropos.products.repository.ProductRepository;
+import org.micropos.carts.exception.CartNotFoundException;
+import org.micropos.carts.model.Cart;
+import org.micropos.carts.repository.CartRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/products")
-public class ProductsController {
+@RequestMapping("/api/carts")
+public class CartsController {
     @Autowired
-    private ProductRepository repository;
+    private CartRepository repository;
 
     @GetMapping("")
     public Collection<String> all() {
@@ -25,7 +25,7 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public Product get(@PathVariable("id") String id) throws ProductNotFoundException {
-        return repository.get(id).orElseThrow(() -> new ProductNotFoundException());
+    public Cart get(@PathVariable("id") String id) throws CartNotFoundException {
+        return repository.get(id).orElseThrow(() -> new CartNotFoundException());
     }
 }

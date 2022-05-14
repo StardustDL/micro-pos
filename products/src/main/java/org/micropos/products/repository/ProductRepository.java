@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.micropos.products.model.Product;
 
 public interface ProductRepository {
-    public Collection<Product> all();
+    public Collection<String> all();
 
-    public Optional<Product> findById(String id);
+    public Optional<Product> get(String id);
 }

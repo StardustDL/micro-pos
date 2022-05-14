@@ -1,4 +1,4 @@
-package org.micropos.products.exception;
+package org.micropos.carts.exception;
 
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ public class GlobalControllerExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
+    @ExceptionHandler(CartNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleProductNotFound(RuntimeException ex) {
+    public ResponseEntity<String> handleCartNotFound(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
