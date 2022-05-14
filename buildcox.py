@@ -19,32 +19,12 @@ def ensureDir(dir: Path):
 
 @withConfig
 @task
-def create(config: Configuration):
-    name: str = config.get("name") or ""
-    if not name:
-        print("No name specified")
-        return
-    subroot = root / name
-    ensureDir(subroot)
-    Path(subroot / "pom.xml").write_text(
-        Path("./build/pom.xml").read_text().replace(r"{project}", name))
-
-    Name = name.title()
-    src = subroot / "src"
-    ensureDir(src / "main" / "java" / "com" / "micropos" / name)
-    Path(src / "main" / "java" / "com" / "micropos" / name / f"{Name}Application.java").write_text(
-        Path("./build/entrypoint.java").read_text().replace(r"{project}", name).replace(r"{Project}", Name))
-    ensureDir(src / "resources")
-
-
-@withConfig
-@task
 def run(config: Configuration):
     name: str = config.get("name") or ""
     if not name:
         print("No name specified")
         return
-    prun(["mvn", "spring-boot:run"], cwd=root / name)
+    prun(["gradle", "bootRun"], cwd=root / name)
 
 
 @withConfig
@@ -53,10 +33,8 @@ def compile(config: Configuration):
     name: str = config.get("name") or ""
     if not name:
         for subdir in root.iterdir():
-            if subdir.name == "build":
-                continue
-            if subdir.is_dir() and (subdir / "pom.xml").exists():
+            if subdir.is_dir() and (subdir / "build.gradle").exists():
                 print(f"Compiling {subdir.name}")
-                prun(["mvn", "compile"], cwd=subdir)
+                prun(["gradle", "build"], cwd=subdir)
     else:
-        prun(["mvn", "compile"], cwd=root / name)
+        prun(["gradle", "build"], cwd=root / name)
