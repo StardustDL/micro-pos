@@ -25,6 +25,8 @@ jobs:
         python -m pip install coxbuild
         coxbuild --version
     - name: CI
+      env:
+        PYTHONUTF8: 1
       run: |
         coxbuild ci
     - name: Upload artifacts
