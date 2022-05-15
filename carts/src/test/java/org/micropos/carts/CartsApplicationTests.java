@@ -34,11 +34,4 @@ class CartsApplicationTests {
 
 		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
-
-	@Test
-	public void findByIdReturn200() throws Exception {
-		ResponseEntity<Cart> entity = this.testRestTemplate.getForEntity(this.url("/api/carts/1"), Cart.class);
-
-		then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-	}
 }
