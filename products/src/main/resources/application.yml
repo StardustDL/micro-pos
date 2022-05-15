@@ -5,6 +5,12 @@ project:
 spring:
   application:
     name: "products"
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    url: "jdbc:mysql://${MYSQL_HOST:localhost}:33306/products"
 springdoc:
   swagger-ui:
     use-root-path: true

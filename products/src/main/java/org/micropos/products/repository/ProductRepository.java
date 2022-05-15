@@ -9,4 +9,10 @@ public interface ProductRepository {
     public Collection<String> all();
 
     public Optional<Product> get(String id);
+
+    public String create();
+
+    public void update(Product item);
+
+    public void remove(String id);
 }

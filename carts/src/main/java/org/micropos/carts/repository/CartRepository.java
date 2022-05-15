@@ -12,7 +12,7 @@ public interface CartRepository {
 
     public String create();
 
-    public void update(Cart cart);
+    public void update(Cart item);
 
     public void remove(String id);
 }

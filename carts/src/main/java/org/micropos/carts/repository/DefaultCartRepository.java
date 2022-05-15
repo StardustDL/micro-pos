@@ -35,9 +35,9 @@ public class DefaultCartRepository implements CartRepository {
     }
 
     @Override
-    public void update(Cart cart) {
-        if (cart.getId().equals(raw.getId())) {
-            raw.setItems(cart.getItems());
+    public void update(Cart item) {
+        if (item.getId().equals(raw.getId())) {
+            raw.setItems(item.getItems());
         }
     }
 
