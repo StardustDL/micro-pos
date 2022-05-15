@@ -8,5 +8,5 @@
         "**/dist": true,
         "**/__pycache__": true,
     },
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

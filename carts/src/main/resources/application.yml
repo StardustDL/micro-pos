@@ -4,7 +4,7 @@ project:
   version: "0.1.0"
 spring:
   application:
-    name: "micropos-carts"
+    name: "carts"
 springdoc:
   swagger-ui:
     use-root-path: true

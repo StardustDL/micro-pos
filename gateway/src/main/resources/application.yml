@@ -1,0 +1,36 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: "gateway"
+  cloud:
+    gateway:
+      routes:
+        - id: products
+          uri: lb://products
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: productsCb
+        - id: carts
+          uri: lb://carts
+          predicates:
+            - Path=/api/carts/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: cartsCb
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "http://localhost:9002"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
