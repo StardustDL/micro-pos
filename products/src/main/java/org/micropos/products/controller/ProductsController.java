@@ -75,18 +75,18 @@ public class ProductsController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> delete(@PathVariable String id) {
+    public Mono<Product> delete(@PathVariable String id) {
         return repository.remove(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public Mono<String> create(@RequestBody Product item) {
+    public Mono<Product> create(@RequestBody Product item) {
         return repository.create(item);
     }
 
     @PutMapping(value = "/{id}")
-    public Mono<Void> update(@PathVariable("id") String id, @RequestBody Product item) {
+    public Mono<Product> update(@PathVariable("id") String id, @RequestBody Product item) {
         return repository.update(item.withId(id));
     }
 }

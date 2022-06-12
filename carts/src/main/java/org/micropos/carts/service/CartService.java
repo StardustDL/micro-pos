@@ -1,11 +1,10 @@
 package org.micropos.carts.service;
 
+import org.micropos.carts.model.Cart;
 import org.micropos.carts.model.Item;
 
+import reactor.core.publisher.Mono;
+
 public interface CartService {
-    public void addItem(String cartId, Item item);
-
-    public void removeItem(String cartId, String productId);
-
-    public void checkout(String cartId);
+    public Mono<Cart> addItem(String cartId, Item item);
 }

@@ -2,11 +2,11 @@ package org.micropos.carts.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.With;
 
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
+@With
 public class Item {
     private final String productId;
 

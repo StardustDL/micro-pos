@@ -10,9 +10,9 @@ public interface ProductRepository {
 
     public Mono<Product> get(String id);
 
-    public Mono<String> create(Product item);
+    public Mono<Product> create(Product item);
 
-    public Mono<Void> update(Product item);
+    public Mono<Product> update(Product item);
 
-    public Mono<Void> remove(String id);
+    public Mono<Product> remove(String id);
 }

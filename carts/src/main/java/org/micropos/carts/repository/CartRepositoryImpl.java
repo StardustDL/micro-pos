@@ -1,9 +1,9 @@
-package org.micropos.products.repository;
+package org.micropos.carts.repository;
 
 import java.util.UUID;
 
-import org.micropos.products.db.ProductDb;
-import org.micropos.products.model.Product;
+import org.micropos.carts.db.CartDb;
+import org.micropos.carts.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,33 +11,28 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class ProductRepositoryImpl implements ProductRepository {
+public class CartRepositoryImpl implements CartRepository {
 
     @Autowired
-    private ProductDb db;
+    private CartDb db;
 
     @Override
     public Flux<String> all() {
-        return db.findAll().map(Product::getId);
+        return db.findAll().map(Cart::getId);
     }
 
     @Override
-    public Mono<Product> get(String id) {
-        return db.findById(id);
+    public Mono<Cart> get(String id) {
+        return db.findById(id).switchIfEmpty(db.save(new Cart().withId(id)));
     }
 
     @Override
-    public Mono<Product> create(Product item) {
-        return db.save(item.withId(UUID.randomUUID().toString()));
-    }
-
-    @Override
-    public Mono<Product> update(Product item) {
+    public Mono<Cart> update(Cart item) {
         return Mono.just(item).filterWhen(x -> db.existsById(x.getId())).flatMap(x -> db.save(x));
     }
 
     @Override
-    public Mono<Product> remove(String id) {
+    public Mono<Cart> remove(String id) {
         return db.existsById(id).flatMap(has -> {
             if (has) {
                 return get(id).flatMap(item -> db.deleteById(id).thenReturn(item));

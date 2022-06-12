@@ -1,8 +1,0 @@
-server:
-  port: 10401
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-

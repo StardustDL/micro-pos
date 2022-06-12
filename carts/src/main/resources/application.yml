@@ -1,10 +1,18 @@
 server:
-  port: 9006
+  port: 10701
 project:
-  version: "0.1.0"
+  version: "0.0.1"
 spring:
   application:
     name: "carts"
+  data:
+    mongodb:
+      database: "micropos"
+      host: "localhost"
+      port: 10501
+  cloud:
+    nacos.discovery.server-addr: "http://localhost:10401"
+
 springdoc:
   swagger-ui:
     use-root-path: true

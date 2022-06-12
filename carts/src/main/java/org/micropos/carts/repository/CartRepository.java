@@ -1,18 +1,16 @@
 package org.micropos.carts.repository;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import org.micropos.carts.model.Cart;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 public interface CartRepository {
-    public Collection<String> all();
+    public Flux<String> all();
 
-    public Optional<Cart> get(String id);
+    public Mono<Cart> get(String id);
 
-    public String create();
+    public Mono<Cart> update(Cart item);
 
-    public void update(Cart item);
-
-    public void remove(String id);
+    public Mono<Cart> remove(String id);
 }

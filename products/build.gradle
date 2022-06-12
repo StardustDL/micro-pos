@@ -23,14 +23,13 @@ repositories {
 }
 
 dependencies {
-	// implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.1'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.9'
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 	runtimeOnly 'org.hsqldb:hsqldb'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

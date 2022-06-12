@@ -7,7 +7,7 @@ spring:
     name: "products"
   data:
     mongodb:
-      database: "products"
+      database: "micropos"
       host: "localhost"
       port: 10501
   cloud:
