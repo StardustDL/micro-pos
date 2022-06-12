@@ -1,5 +1,7 @@
 package org.micropos.products.controller;
 
+import java.util.List;
+
 import org.micropos.products.exception.ProductNotFoundException;
 import org.micropos.products.model.Product;
 import org.micropos.products.repository.ProductRepository;
@@ -29,6 +31,11 @@ public class ProductsController {
     @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> all() {
         return repository.all();
+    }
+
+    @GetMapping("/full") 
+    public Mono<List<String>> allFull() {
+        return repository.all().collectList();
     }
 
     @GetMapping("/{id}")
