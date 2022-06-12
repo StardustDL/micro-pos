@@ -1,15 +1,13 @@
 package org.micropos.products.repository;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.micropos.products.db.ProductDb;
 import org.micropos.products.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -18,35 +16,27 @@ public class ProductRepositoryImpl implements ProductRepository {
     private ProductDb db;
 
     @Override
-    public Collection<String> all() {
-        List<String> ids = new ArrayList<>();
-        for (Product product : db.findAll()) {
-            ids.add(product.getId());
-        }
-        return ids;
+    public Flux<String> all() {
+        return db.findAll().map(x -> x.getId());
     }
 
     @Override
-    public Optional<Product> get(String id) {
+    public Mono<Product> get(String id) {
         return db.findById(id);
     }
 
     @Override
-    public String create(Product item) {
-        item = item.withId(UUID.randomUUID().toString());
-        db.save(item);
-        return item.getId();
+    public Mono<String> create(Product item) {
+        return db.save(item.withId(UUID.randomUUID().toString())).map(x -> x.getId());
     }
 
     @Override
-    public void update(Product item) {
-        if (db.existsById(item.getId())) {
-            db.save(item);
-        }
+    public Mono<Void> update(Product item) {
+        return Mono.just(item).filterWhen(x -> db.existsById(x.getId())).flatMap(x -> db.save(x)).then();
     }
 
     @Override
-    public void remove(String id) {
-        db.deleteById(id);
+    public Mono<Void> remove(String id) {
+        return db.deleteById(id);
     }
 }

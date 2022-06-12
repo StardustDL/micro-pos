@@ -1,18 +1,18 @@
 package org.micropos.products.repository;
 
-import java.util.Collection;
-import java.util.Optional;
-
 import org.micropos.products.model.Product;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 public interface ProductRepository {
-    public Collection<String> all();
+    public Flux<String> all();
 
-    public Optional<Product> get(String id);
+    public Mono<Product> get(String id);
 
-    public String create(Product item);
+    public Mono<String> create(Product item);
 
-    public void update(Product item);
+    public Mono<Void> update(Product item);
 
-    public void remove(String id);
+    public Mono<Void> remove(String id);
 }
