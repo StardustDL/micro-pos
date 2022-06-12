@@ -1,4 +1,5 @@
 package org.micropos.products.repository;
+
 import java.util.UUID;
 
 import org.micropos.products.db.ProductDb;
@@ -17,7 +18,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Flux<String> all() {
-        return db.findAll().map(x -> x.getId());
+        return db.findAll().map(Product::getId);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Mono<String> create(Product item) {
-        return db.save(item.withId(UUID.randomUUID().toString())).map(x -> x.getId());
+        return db.save(item.withId(UUID.randomUUID().toString())).map(Product::getId);
     }
 
     @Override
