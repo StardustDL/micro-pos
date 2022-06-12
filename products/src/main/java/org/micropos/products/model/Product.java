@@ -1,20 +1,25 @@
 package org.micropos.products.model;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.With;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
 
-@Entity
+@Document(collection = "products")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@With
 public class Product {
     @Id
     private String id;
 
     private String name;
 
-    private double price;
+    private String description;
 
     private String image;
+
+    private double price;
 }

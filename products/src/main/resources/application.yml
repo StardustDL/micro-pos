@@ -1,16 +1,18 @@
 server:
-  port: 9005
+  port: 10601
 project:
-  version: "0.1.0"
+  version: "0.0.1"
 spring:
   application:
     name: "products"
-  jpa:
-    hibernate:
-      ddl-auto: "update"
-  datasource:
-    driver-class-name: "com.mysql.cj.jdbc.Driver"
-    url: "jdbc:mysql://${MYSQL_HOST:localhost}:33306/products"
+  data:
+    mongodb:
+      database: "products"
+      host: "localhost"
+      port: 10501
+  cloud:
+    nacos.discovery.server-addr: "http://localhost:10401"
+
 springdoc:
   swagger-ui:
     use-root-path: true

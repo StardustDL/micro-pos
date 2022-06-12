@@ -10,7 +10,7 @@ public interface ProductRepository {
 
     public Optional<Product> get(String id);
 
-    public String create();
+    public String create(Product item);
 
     public void update(Product item);
 

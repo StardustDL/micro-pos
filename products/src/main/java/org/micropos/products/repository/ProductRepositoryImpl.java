@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DefaultProductRepository implements ProductRepository {
+public class ProductRepositoryImpl implements ProductRepository {
 
     @Autowired
     private ProductDb db;
@@ -32,9 +32,8 @@ public class DefaultProductRepository implements ProductRepository {
     }
 
     @Override
-    public String create() {
-        Product item = new Product();
-        item.setId(UUID.randomUUID().toString());
+    public String create(Product item) {
+        item = item.withId(UUID.randomUUID().toString());
         db.save(item);
         return item.getId();
     }

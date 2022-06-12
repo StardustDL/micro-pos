@@ -1,12 +1,8 @@
 server:
-  port: 8761
+  port: 10401
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
 
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
