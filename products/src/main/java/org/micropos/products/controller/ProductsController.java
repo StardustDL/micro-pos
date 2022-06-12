@@ -86,7 +86,8 @@ public class ProductsController {
     }
 
     @PutMapping(value = "/{id}")
-    public Mono<Product> update(@PathVariable("id") String id, @RequestBody Product item) {
-        return repository.update(item.withId(id));
+    public Mono<Product> update(@PathVariable("id") String id, @RequestBody Product item)
+            throws ProductNotFoundException {
+        return repository.update(item.withId(id)).switchIfEmpty(Mono.error(new ProductNotFoundException()));
     }
 }

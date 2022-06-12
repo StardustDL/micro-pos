@@ -1,9 +1,8 @@
-package org.micropos.carts;
+package org.micropos.orders;
 
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
-import org.micropos.carts.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CartsApplicationTests {
+class OrdersApplicationTests {
 
 	@LocalServerPort
 	private int port;
