@@ -7,9 +7,10 @@ import lombok.With;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @With
-public class Item {
-    private final Product product;
+public class ItemRequest {
+    private String productId;
 
     private int quantity;
 }

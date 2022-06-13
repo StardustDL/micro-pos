@@ -1,8 +1,8 @@
-package org.micropos.carts.service;
+package org.micropos.orders.service;
 
 import java.util.function.Consumer;
 
-import org.micropos.carts.model.Product;
+import org.micropos.orders.model.Product;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;

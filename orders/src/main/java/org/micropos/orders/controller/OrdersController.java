@@ -6,8 +6,10 @@ import java.util.List;
 import org.micropos.orders.exception.OrderNotFoundException;
 import org.micropos.orders.exception.ProductNotFoundException;
 import org.micropos.orders.model.Order;
+import org.micropos.orders.model.OrderRequest;
 import org.micropos.orders.model.Item;
 import org.micropos.orders.repository.OrderRepository;
+import org.micropos.orders.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class OrdersController {
     @Autowired
     private OrderRepository repository;
 
+    @Autowired
+    private OrderService service;
+
     @GetMapping(path = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> all() {
         return repository.all();
@@ -53,12 +58,7 @@ public class OrdersController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public Mono<Order> create(@RequestBody Order item) throws ProductNotFoundException {
-        return repository.create(item);
-    }
-
-    @PutMapping(value = "/{id}")
-    public Mono<Order> update(@PathVariable("id") String id, @RequestBody Order item) throws OrderNotFoundException {
-        return repository.update(item.withId(id)).switchIfEmpty(Mono.error(new OrderNotFoundException()));
+    public Mono<Order> create(@RequestBody OrderRequest item) throws ProductNotFoundException {
+        return service.create(item);
     }
 }
