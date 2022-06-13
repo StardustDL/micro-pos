@@ -24,11 +24,17 @@ jobs:
       run: |
         python -m pip install coxbuild
         coxbuild --version
+    - name: Prepare services
+      run: |
+        docker-compose up -d
     - name: CI
       env:
         PYTHONUTF8: 1
       run: |
         coxbuild ci
+    - name: Shutdown services
+      run: |
+        docker-compose down
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:

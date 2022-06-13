@@ -4,12 +4,12 @@ services:
   db:
     image: mongo:5
     ports:
-      - "10501:27017"
+      - "10500:27017"
   mq:
     image: rabbitmq:3-management
     ports:
-      - "10511:5672"
-      - "10512:15672"
+      - "10510:5672"
+      - "10511:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -20,5 +20,5 @@ services:
     - PREFER_HOST_MODE=hostname
     - MODE=standalone
     ports:
-    - "10401:8848"
-    - "10402:9848"
+    - "10400:8848"
+    - "10401:9848"

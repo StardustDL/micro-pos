@@ -1,7 +1,9 @@
 package org.micropos.carts.service;
 
+import org.micropos.carts.exception.ProductNotFoundException;
 import org.micropos.carts.model.Cart;
 import org.micropos.carts.model.Item;
+import org.micropos.carts.model.Product;
 import org.micropos.carts.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @Override
     public Mono<Cart> addItem(String cartId, Item item) {
@@ -29,8 +34,15 @@ public class CartServiceImpl implements CartService {
                 }
             } else {
                 if (item.getQuantity() > 0) {
-                    // TODO: check exists product
-                    items.add(item);
+                    try {
+                        Product product = productService.get(item.getProductId());
+                        if (product != null) {
+                            items.add(item.withProductId(product.getId()));
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        return Mono.error(new ProductNotFoundException());
+                    }
                 }
             }
             return cartRepository.update(cart);

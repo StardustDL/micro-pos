@@ -1,5 +1,5 @@
 server:
-  port: 10701
+  port: 10700
 project:
   version: "0.0.1"
 spring:
@@ -9,9 +9,9 @@ spring:
     mongodb:
       database: "micropos"
       host: "localhost"
-      port: 10501
+      port: 10500
   cloud:
-    nacos.discovery.server-addr: "http://localhost:10401"
+    nacos.discovery.server-addr: "http://localhost:10400"
 
 springdoc:
   swagger-ui:

@@ -1,10 +1,10 @@
 server:
-  port: 10301
+  port: 10300
 spring:
   application:
     name: "gateway"
   cloud:
-    nacos.discovery.server-addr: "http://localhost:10401"
+    nacos.discovery.server-addr: "http://localhost:10400"
     gateway:
       discovery:
         locator:
