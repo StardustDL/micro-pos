@@ -48,7 +48,7 @@ public class OrdersController {
 
     @GetMapping("/{id}")
     public Mono<Order> get(@PathVariable String id) throws OrderNotFoundException {
-        return repository.get(id);
+        return repository.get(id).switchIfEmpty(Mono.error(new OrderNotFoundException()));
     }
 
     @DeleteMapping("/{id}")

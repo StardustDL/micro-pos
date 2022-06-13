@@ -1,9 +1,9 @@
-package org.micropos.orders.repository;
+package org.micropos.delivery.repository;
 
 import java.util.UUID;
 
-import org.micropos.orders.db.OrderDb;
-import org.micropos.orders.model.Order;
+import org.micropos.delivery.db.DeliveryDb;
+import org.micropos.delivery.model.Delivery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,33 +11,33 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class OrderRepositoryImpl implements OrderRepository {
+public class DeliveryRepositoryImpl implements DeliveryRepository {
 
     @Autowired
-    private OrderDb db;
+    private DeliveryDb db;
 
     @Override
     public Flux<String> all() {
-        return db.findAll().map(Order::getId);
+        return db.findAll().map(Delivery::getId);
     }
 
     @Override
-    public Mono<Order> create(Order item) {
+    public Mono<Delivery> create(Delivery item) {
         return db.save(item.withId(UUID.randomUUID().toString()));
     }
 
     @Override
-    public Mono<Order> get(String id) {
+    public Mono<Delivery> get(String id) {
         return db.findById(id);
     }
 
     @Override
-    public Mono<Order> update(Order item) {
+    public Mono<Delivery> update(Delivery item) {
         return Mono.just(item).filterWhen(x -> db.existsById(x.getId())).flatMap(x -> db.save(x));
     }
 
     @Override
-    public Mono<Order> remove(String id) {
+    public Mono<Delivery> remove(String id) {
         return db.existsById(id).flatMap(has -> {
             if (has) {
                 return get(id).flatMap(item -> db.deleteById(id).thenReturn(item));

@@ -1,4 +1,4 @@
-package org.micropos.orders;
+package org.micropos.delivery;
 
 import java.util.Collection;
 
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OrdersApplicationTests {
+class DeliveryApplicationTests {
 
 	@LocalServerPort
 	private int port;
