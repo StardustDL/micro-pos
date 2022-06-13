@@ -26,6 +26,7 @@ dependencies {
 	implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.1'
 	implementation "org.springframework.cloud:spring-cloud-starter-gateway"
 	implementation "org.springframework.cloud:spring-cloud-loadbalancer"
+	implementation "org.springframework.integration:spring-integration-webflux"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
