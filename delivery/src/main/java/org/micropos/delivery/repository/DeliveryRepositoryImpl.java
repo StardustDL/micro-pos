@@ -23,7 +23,7 @@ public class DeliveryRepositoryImpl implements DeliveryRepository {
 
     @Override
     public Mono<Delivery> create(Delivery item) {
-        return db.save(item.withId(UUID.randomUUID().toString()));
+        return db.save(item);
     }
 
     @Override

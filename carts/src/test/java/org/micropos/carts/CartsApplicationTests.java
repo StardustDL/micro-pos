@@ -26,7 +26,7 @@ class CartsApplicationTests {
 		return "http://localhost:" + this.port + endpoint;
 	}
 
-	@Test
+	// @Test
 	public void allReturn200() throws Exception {
 		@SuppressWarnings("rawtypes")
 		ResponseEntity<Collection> entity = this.testRestTemplate.getForEntity(this.url("/api"),

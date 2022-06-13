@@ -5,7 +5,10 @@ import org.micropos.orders.model.OrderRequest;
 import org.micropos.orders.repository.OrderRepository;
 import org.micropos.orders.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.bus.event.RefreshRemoteApplicationEvent;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
@@ -22,6 +25,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ApplicationContext context;
 
+    @Value("${spring.cloud.bus.id}")
+    private String applicationName;
+
     @Override
     public Mono<Order> create(OrderRequest item) {
         return Flux.fromIterable(item.getItems())
@@ -32,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
                 .map(x -> new Order(item.getId(), x))
                 .flatMap(x -> repository.create(x))
                 .map(x -> {
-                    // TODO: send event
+                    context.publishEvent(new OrderCreatedEvent(x, this, applicationName, "delivery"));
                     return x;
                 });
     }
